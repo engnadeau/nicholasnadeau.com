@@ -1,0 +1,51 @@
+[build]
+publish = "public"
+command = "make build"
+
+[build.environment]
+HUGO_VERSION = "0.126.1"
+HUGO_ENABLEGITINFO = "true"
+
+[context.deploy-preview]
+command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"
+
+[[plugins]]
+# https://github.com/netlify/netlify-plugin-lighthouse
+package = "@netlify/plugin-lighthouse"
+
+  # optional, fails build when a category is below a threshold
+  [plugins.inputs.thresholds]
+    performance = 0.6
+    accessibility = 0.9
+    best-practices = 0.8
+    seo = 0.9
+    pwa = 0.8
+
+[[plugins]]
+# https://github.com/netlify-labs/netlify-plugin-sitemap
+package = "@netlify/plugin-sitemap"
+
+# https://docs.netlify.com/configure-builds/file-based-configuration/#redirects
+[[redirects]]
+from = "https://www.nicholasnadeau.me"
+to = "https://www.nicholasnadeau.com"
+status = 301
+force = true
+
+[[redirects]]
+from = "https://nicholasnadeau.me"
+to = "https://www.nicholasnadeau.com"
+status = 301
+force = true
+
+[[redirects]]
+from = "https://www.engnadeau.com"
+to = "https://www.nicholasnadeau.com"
+status = 301
+force = true
+
+[[redirects]]
+from = "https://engnadeau.com"
+to = "https://www.nicholasnadeau.com"
+status = 301
+force = true
